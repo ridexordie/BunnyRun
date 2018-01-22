@@ -5,7 +5,7 @@ using UnityEngine;
 public class BunnyController : MonoBehaviour {
 
 	private Rigidbody2D myRigidBody;
-	public float bunnyJumpForce = 300f;
+	public float bunnyJumpForce = 750f;
 
 	// Use this for initialization
 	void Start () {
