@@ -8,10 +8,11 @@ public class BunnyController : MonoBehaviour {
 	private Rigidbody2D myRigidBody;
 	public Collider2D myCollider;
 	public Animator myAnim;
-	public float bunnyJumpForce = 750f;
+	public float bunnyJumpForce = 500f;
 	private float bunnyHurtTime = -1;
 	public Text scoreTest;
 	private float startTime;
+	private int jumpsLeft = 2;
 
 	// Use this for initialization
 	void Start () {
@@ -31,8 +32,9 @@ public class BunnyController : MonoBehaviour {
 
 		if (bunnyHurtTime == -1) {
 
-			if (Input.GetButtonUp("Jump")) {
+			if (Input.GetButtonUp("Jump") && jumpsLeft > 0) {
 				myRigidBody.AddForce (transform.up * bunnyJumpForce);
+				jumpsLeft--;
 			}
 
 			myAnim.SetFloat("vVelocity", myRigidBody.velocity.y);
@@ -71,6 +73,8 @@ public class BunnyController : MonoBehaviour {
 			myRigidBody.velocity = Vector2.zero;
 			myRigidBody.AddForce(transform.up * bunnyJumpForce);
 			myCollider.enabled = false;
+		}else if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+			jumpsLeft = 2;
 		}
 	}
 }
